@@ -1,0 +1,20 @@
+diff --git a/views_load_more.module b/views_load_more.module
+index 39ac4e0..dd4bb76 100644
+--- a/views_load_more.module
++++ b/views_load_more.module
+@@ -50,7 +50,14 @@ function views_load_more_views_ajax_data_alter(&$commands, $view) {
+       // the replace should the only one, but just incase, we'll make sure.
+       if ($command['command'] == 'insert' && $command['selector'] == '.view-dom-id-' . $view->dom_id) {
+         $commands[$key]['command'] = 'viewsLoadMoreAppend';
+-        $commands[$key]['method'] = 'append';
++
++        // Replace the view if "view all" clicked
++        if ($view->query->pager->display->display_options['pager']['options']['items_per_page'] == '0') {
++          $commands[$key]['method'] = 'html';
++        } else {
++          $commands[$key]['method'] = 'append';
++        }
++
+         if (isset($view->query->pager->options['effects']) && $view->query->pager->options['effects']['type'] != 'none') {
+           $commands[$key]['effect'] = $view->query->pager->options['effects']['type'];
+           $commands[$key]['speed'] = $view->query->pager->options['effects']['speed'];
