@@ -1,0 +1,31 @@
+diff --git a/modules/mailchimp_lists/mailchimp_lists.module b/modules/mailchimp_lists/mailchimp_lists.module
+index ac345e4..e794e9b 100644
+--- a/modules/mailchimp_lists/mailchimp_lists.module
++++ b/modules/mailchimp_lists/mailchimp_lists.module
+@@ -601,6 +601,17 @@ function mailchimp_lists_process_subscribe_form_choices($list_forms, $account =
+     $function = '';
+     $ret = FALSE;
+     $interest_groups = !empty($form_list['interest_groups']) ? $form_list['interest_groups'] : NULL;
++    // Check if there Interest Groups selected.
++    $groups_selected = FALSE;
++
++    foreach ($interest_groups as $interest_group) {
++      $filtered = array_filter($interest_group);
++      if(!empty($filtered)) {
++        $groups_selected = TRUE;
++        break;
++      }
++    }
++
+     if (!$is_anonymous) {
+       $mail = $account->mail;
+       $selected = !empty($form_list['subscribe']);
+@@ -619,7 +630,7 @@ function mailchimp_lists_process_subscribe_form_choices($list_forms, $account =
+ 
+     // Determine what function is appropriate.
+     // Unsubscribe a subscribed user who unchecked an Optional list:
+-    if ($is_subscribed && !$selected && !$list->settings['required']) {
++    if ($is_subscribed && !$groups_selected && !$selected && !$list->settings['required']) {
+       $function = 'remove';
+     }
+     // Otherwise we are doing an update or an add, based on $is_subscribed:
