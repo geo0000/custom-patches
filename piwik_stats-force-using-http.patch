@@ -1,0 +1,22 @@
+diff --git a/piwik_stats.module b/piwik_stats.module
+index 15d9f83..4daf6ed 100644
+--- a/piwik_stats.module
++++ b/piwik_stats.module
+@@ -731,7 +731,7 @@ function _piwik_stats_get_entities($type, $bundle) {
+  */
+ function _piwik_stats_get_aliases($uri) {
+   // The URLs we get from piwik are absolute, so we transform them as needed.
+-  $urls = array(url($uri, array('absolute' => TRUE, 'alias' => TRUE)));
++  $urls = array(url($uri, array('absolute' => TRUE, 'alias' => TRUE, 'https' => FALSE)));
+ 
+   // Grab all URL aliases of the system URI.
+   $select = db_select('url_alias', 'u');
+@@ -739,7 +739,7 @@ function _piwik_stats_get_aliases($uri) {
+   $select->condition('u.source', $uri);
+   $aliases = $select->execute()->fetchAll();
+   foreach ($aliases as $alias) {
+-    $urls[] = url($alias->alias, array('absolute' => TRUE, 'alias' => TRUE));
++    $urls[] = url($alias->alias, array('absolute' => TRUE, 'alias' => TRUE, 'https' => FALSE));
+   }
+ 
+   return $urls;
