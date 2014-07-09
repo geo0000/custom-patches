@@ -15,8 +15,8 @@ index 15d9f83..4daf6ed 100644
    $select->condition('u.source', $uri);
    $aliases = $select->execute()->fetchAll();
    foreach ($aliases as $alias) {
--    $urls[] = url($alias->alias, array('absolute' => TRUE, 'alias' => TRUE));
-+    $urls[] = url($alias->alias, array('absolute' => TRUE, 'alias' => TRUE, 'https' => FALSE));
+-    $urls[] = url($alias->alias, array('absolute' => TRUE, 'alias' => TRUE)) . $sub_url;
++    $urls[] = url($alias->alias, array('absolute' => TRUE, 'alias' => TRUE, 'https' => FALSE)) . $sub_url;
    }
  
    return $urls;
