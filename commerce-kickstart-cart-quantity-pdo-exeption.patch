@@ -1,0 +1,19 @@
+diff --git a/profiles/commerce_kickstart/modules/contrib/commerce/modules/line_item/includes/views/handlers/commerce_line_item_handler_field_edit_quantity.inc b/profiles/commerce_kickstart/modules/contrib/commerce/modules/line_item/includes/views/handlers/commerce_line_item_handler_field_edit_quantity.inc
+index be9fe55..ddba997 100644
+--- a/profiles/commerce_kickstart/modules/contrib/commerce/modules/line_item/includes/views/handlers/commerce_line_item_handler_field_edit_quantity.inc
++++ b/profiles/commerce_kickstart/modules/contrib/commerce/modules/line_item/includes/views/handlers/commerce_line_item_handler_field_edit_quantity.inc
+@@ -42,13 +42,12 @@ class commerce_line_item_handler_field_edit_quantity extends views_handler_field
+     foreach ($this->view->result as $row_id => $row) {
+       $line_item_id = $this->get_value($row, 'line_item_id');
+       $quantity = $this->get_value($row, 'quantity');
+-
+       $form[$this->options['id']][$row_id] = array(
+         '#type' => 'textfield',
+         '#datatype' => 'integer',
+         '#default_value' => round($quantity),
+         '#size' => 4,
+-        '#maxlength' => max(4, strlen($quantity)),
++        '#maxlength' => max(4, strlen(round($quantity))),
+         '#line_item_id' => $line_item_id,
+         '#attributes' => array(
+           'title' => $this->options['label'],
