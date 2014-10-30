@@ -55,10 +55,10 @@ index 7f46e1c..927ab52 100644
      '#description' => $filter ? _webform_filter_descriptions($component['extra']['description'], $node) : $component['extra']['description'],
      '#weight' => $component['weight'],
 diff --git a/webform.install b/webform.install
-index a74763a..9edc52d 100644
+index a74763a..7059f8c 100644
 --- a/webform.install
 +++ b/webform.install
-@@ -851,3 +851,23 @@ function webform_update_7321() {
+@@ -851,3 +851,21 @@ function webform_update_7321() {
      _webform_delete_file(NULL, array($fid));
    }
  }
@@ -73,11 +73,9 @@ index a74763a..9edc52d 100644
 +    ->execute();
 +  foreach ($result as $component) {
 +    $component['extra'] = unserialize($component['extra']);
-+    if (!isset($component['extra']['directory'])) {
-+      $component['extra']['scheme'] = 'webform';
-+      $component['extra'] = serialize($component['extra']);
-+      drupal_write_record('webform_component', $component, array('nid', 'cid'));
-+    }
++    $component['extra']['scheme'] = 'webform';
++    $component['extra'] = serialize($component['extra']);
++    drupal_write_record('webform_component', $component, array('nid', 'cid'));
 +  }
 +
 +  return t('File components updated to use webform:// scheme.');
