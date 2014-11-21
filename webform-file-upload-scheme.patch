@@ -121,4 +121,14 @@ index 40d3076..0616b21 100644
 +  public function getDirectoryPath() {
 +    return parent::getDirectoryPath() . '/webform';
 +  }
++
++  /**
++   * Overrides getExternalUrl().
++   *
++   * Return the HTML URI of a public file.
++   */
++  public function getExternalUrl() {
++    $path = str_replace('\\', '/', $this->getTarget());
++    return $GLOBALS['base_url'] . '/' . self::getDirectoryPath() . '/' . drupal_encode_path($path);
++  }
 +}
