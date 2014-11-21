@@ -81,10 +81,10 @@ index a74763a..7059f8c 100644
 +  return t('File components updated to use webform:// scheme.');
 +}
 diff --git a/webform.module b/webform.module
-index 40d3076..0616b21 100644
+index d806684..62e43c3 100644
 --- a/webform.module
 +++ b/webform.module
-@@ -3905,3 +3905,37 @@ function webform_mollom_form_info($form_id) {
+@@ -3901,3 +3901,47 @@ function webform_mollom_form_info($form_id) {
  
    return $form_info;
  }
@@ -132,3 +132,4 @@ index 40d3076..0616b21 100644
 +    return $GLOBALS['base_url'] . '/' . self::getDirectoryPath() . '/' . drupal_encode_path($path);
 +  }
 +}
+\ No newline at end of file
