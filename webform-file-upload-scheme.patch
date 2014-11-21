@@ -81,21 +81,22 @@ index a74763a..7059f8c 100644
 +  return t('File components updated to use webform:// scheme.');
 +}
 diff --git a/webform.module b/webform.module
-index d806684..62e43c3 100644
+index d806684..b0616fd 100644
 --- a/webform.module
 +++ b/webform.module
-@@ -3901,3 +3901,47 @@ function webform_mollom_form_info($form_id) {
+@@ -3901,3 +3901,48 @@ function webform_mollom_form_info($form_id) {
  
    return $form_info;
  }
++
 +
 +function webform_get_scheme() {
 +  return array('webform' => t('Webform'));
 +}
 +
 +/**
-+ *  Implements hook_stream_wrappers().
-+ */
++  *  Implements hook_stream_wrappers().
++  */
 +function webform_stream_wrappers() {
 +  return array(
 +    'webform' => array(
@@ -108,11 +109,11 @@ index d806684..62e43c3 100644
 +}
 +
 +/**
-+ * Webform (webform://) stream wrapper class.
-+ *
-+ * Provides support for storing webform files with the Drupal file
-+ * interface.
-+ */
++  * Webform (webform://) stream wrapper class.
++  *
++  * Provides support for storing webform files with the Drupal file
++  * interface.
++  */
 +class WebformStreamWrapper extends DrupalPublicStreamWrapper {
 +
 +  /**
@@ -130,6 +131,5 @@ index d806684..62e43c3 100644
 +  public function getExternalUrl() {
 +    $path = str_replace('\\', '/', $this->getTarget());
 +    return $GLOBALS['base_url'] . '/' . self::getDirectoryPath() . '/' . drupal_encode_path($path);
-+  }
++    }
 +}
-\ No newline at end of file
