@@ -1,5 +1,3 @@
-diff --git a/webform_encrypt/webform_encrypt.module b/webform_encrypt/webform_encrypt.module
-index 19c12b8..dcfa3fb 100644
 --- a/webform_encrypt/webform_encrypt.module
 +++ b/webform_encrypt/webform_encrypt.module
 @@ -65,18 +65,29 @@ function webform_encrypt_webform_submission_presave($node, &$submission) {
