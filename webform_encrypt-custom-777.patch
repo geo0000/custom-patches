@@ -1,0 +1,43 @@
+diff --git a/webform_encrypt.module b/webform_encrypt.module
+index 71e9ece..577c3c1 100644
+--- a/webform_encrypt.module
++++ b/webform_encrypt.module
+@@ -90,17 +90,29 @@ function webform_encrypt_webform_submission_presave($node, &$submission) {
+ }
+ 
+ /**
+- * Implementation of hook_webform_submission_render_alter().
+- * Decrypt values when displaying webform submissions.
++ * Implements hook_webform_submission_load().
++ *
++ * Decrypt values when loading a submission
+  */
+-function webform_encrypt_webform_submission_render_alter(&$renderable) {
+-  foreach ($renderable['#submission']->data as $cid => $entry) {
+-    if ($renderable['#node']->webform['components'][$cid]['encrypt']) {
+-      $form_key = $renderable['#node']->webform['components'][$cid]['form_key'];
++function webform_encrypt_webform_submission_load(array &$submissions) {
++  foreach ($submissions as &$submission) {
++    // Loop through the data, the key is the `cid` that can be used to
++    // load the component
++    foreach ($submission->data as $cid => &$value) {
++      // The last parameter is only used when loading a "new" cid
++      $component = webform_menu_component_load($cid, $submission->nid, NULL);
++
++      // Continue when the component isn't encrypted at all.
++      if (empty($component['extra']['encrypt']) || empty($value['value'][0])) {
++        continue;
++      }
++
++      // Decript
+       if (user_access('view encrypted values')) {
+-        $renderable[$form_key]['#value'] = aes_decrypt($entry['value'][0]);
+-      } else {
+-        $renderable[$form_key]['#value'] = t('<Value Encrypted>');
++        $value['value'][0] = decrypt($value['value'][0], array('base64' => TRUE));
++      }
++      else {
++        $value['value'][0] = t('[Value Encrypted]');
+       }
+     }
+   }
