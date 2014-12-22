@@ -1,5 +1,5 @@
---- a/webform_encrypt/webform_encrypt.module
-+++ b/webform_encrypt/webform_encrypt.module
+--- webform_encrypt.module
++++ webform_encrypt.module
 @@ -65,18 +65,29 @@ function webform_encrypt_webform_submission_presave($node, &$submission) {
  }
  
