@@ -1,0 +1,13 @@
+diff --git a/views/media_browser_plus.views_default.inc b/views/media_browser_plus.views_default.inc
+index 03174f3..ee482b0 100644
+--- a/views/media_browser_plus.views_default.inc
++++ b/views/media_browser_plus.views_default.inc
+@@ -370,7 +370,7 @@ function media_browser_plus_views_management() {
+       'label' => '',
+     ),
+     'action::views_bulk_operations_modify_action' => array(
+-      'selected' => 0,
++      'selected' => 1,
+       'postpone_processing' => 0,
+       'skip_confirmation' => 0,
+       'override_label' => 0,
